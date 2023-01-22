@@ -2,6 +2,7 @@ import { Suspense, lazy } from "react";
 import {
   Html,
   useProgress,
+  SpotLight
 } from "@react-three/drei";
 
 const Canvas = lazy(() => import('./ThreeCanvas'))
@@ -19,7 +20,8 @@ const VoxelArt = () => {
       <Suspense fallback={<Loader />}>
         <OrbitControls enabled autoRotate />
         <Model scale={1.75} />
-        <ambientLight intensity={1} />
+        <ambientLight intensity={0.4} />
+        <pointLight position={[-200, 40, 50]} castShadow={true} />
       </Suspense>
     </Canvas>
   ); 
