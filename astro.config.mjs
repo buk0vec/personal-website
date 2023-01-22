@@ -10,6 +10,11 @@ import react from "@astrojs/react";
 import compress from "astro-compress";
 
 // https://astro.build/config
+import image from "@astrojs/image";
+
+// https://astro.build/config
 export default defineConfig({
-  integrations: [tailwind(), react(), compress()]
+  integrations: [tailwind(), react(), compress(), image({
+    serviceEntryPoint: '@astrojs/image/sharp'
+  })]
 });
