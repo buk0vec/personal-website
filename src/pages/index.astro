@@ -12,12 +12,12 @@ import Headshot from "../assets/headshot.jpeg";
       <section class="sm:pl-9 px-2 md:pr-2 py-4 min-w-1/2">
         <h1 class="text-4xl font-extrabold pb-2">
           <div
-            class="sm:block inline align-baseline h-32 w-32 mx-2 rounded-full border-4 border-black"
+            class="sm:block inline-block align-baseline mx-2 rounded-full border-4 w-fit h-fit border-black overflow-hidden"
           >
             <Image width={128} height={128} src={Headshot} alt="Headshot" />
           </div>
           Hi, I'm <span class="text-green-700 text-5xl lg:inline block"
-            >Nick <LastName client:idle /></span
+            >Nick&nbsp;<LastName client:idle /></span
           >
         </h1>
         <p class="text-lg">
