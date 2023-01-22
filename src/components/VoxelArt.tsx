@@ -34,8 +34,17 @@ const VoxelArt = () => {
       <Suspense fallback={<Loader />}>
         <OrbitControls enabled autoRotate />
         <Model scale={1.75} />
-        <ambientLight intensity={0.4} />
-        <pointLight position={[-200, 40, 50]} castShadow={true} />
+        <pointLight
+          position={[-200, 40, 50]}
+          color={[213, 174, 122]}
+          intensity={0.01}
+        />
+        <hemisphereLight
+          position={[0, 50, 0]}
+          color={[213, 174, 122]}
+          intensity={0.01}
+        />
+        <ambientLight intensity={0.2} />
       </Suspense>
     </Canvas>
   );

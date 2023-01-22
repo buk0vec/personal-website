@@ -23,6 +23,7 @@ function Model(props: JSX.IntrinsicElements["group"]) {
   return (
     <group {...props} dispose={null}>
       <mesh
+      castShadow={true}
         geometry={nodes.Untitled.geometry}
         material={materials.palette}
         position={[0, -6, 0]}
