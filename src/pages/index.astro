@@ -1,28 +1,28 @@
 ---
 import VoxelArt from "../components/VoxelArt";
 import Layout from "../layouts/Layout.astro";
+import LastName from "../components/LastName"
 ---
 
 <Layout>
   <main class="px-4 py-4">
-    <h1 class="text-3xl font-extrabold">Hi, I'm Nick</h1>
-    <div class="min-h-96 h-96">
-      <VoxelArt client:only="react" />
+    <div class="flex md:flex-row flex-col-reverse">
+      <section class="pl-9 pr-9 md:pr-2 py-4 min-w-1/2">
+        <h1 class="text-4xl font-extrabold pb-2">
+        <img class='sm:block inline align-baseline h-32 w-32 mx-2 rounded-full border-4 border-black' src="headshot.jpeg" />
+          Hi, I'm <span class="text-green-700 text-5xl lg:inline block">Nick <LastName client:idle/></span>
+        </h1>
+        <p class='text-lg'>
+          I am an undergraduate student studying Computer Science at <span class='font-bold'>California Polytechnic State University.</span>
+          <br>
+          I am a <span class='font-bold'>Student Lead</span> for the Service Desk at <span class='font-bold'>Cal Poly Information Technology Services.</span>
+          <br>
+          I like web and fullstack development, data analysis, machine learning, and optimization.
+        </p>
+      </section>
+      <div class="min-h-96 h-96 min-w-1/2">
+        <VoxelArt client:only="react" />
+      </div>
     </div>
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus finibus,
-      enim nec malesuada faucibus, nulla magna maximus massa, eu laoreet nisi
-      magna a augue. Proin in feugiat felis. Mauris vestibulum ac urna a
-      elementum. Nam a elit ligula. Curabitur tristique dictum aliquet. Sed
-      aliquet, metus vitae auctor accumsan, neque ligula ultricies ante, nec
-      faucibus leo orci vestibulum tortor. Sed malesuada ante facilisis purus
-      maximus efficitur. Sed at ligula cursus, fermentum eros sit amet,
-      tincidunt tortor. Orci varius natoque penatibus et magnis dis parturient
-      montes, nascetur ridiculus mus. Aenean consectetur, ex id luctus
-      venenatis, lectus diam porta est, porta posuere sem lectus nec justo.
-      Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere
-      cubilia curae; Nulla quis fringilla ipsum. Mauris ac fringilla lorem, ac
-      consequat justo. Praesent id bibendum massa.
-    </p>
   </main>
 </Layout>
