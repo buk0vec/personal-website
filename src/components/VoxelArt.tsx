@@ -1,12 +1,12 @@
-import { Canvas } from "@react-three/fiber";
-import { Suspense } from "react";
+import { Suspense, lazy } from "react";
 import {
-  Environment,
   Html,
-  OrbitControls,
   useProgress,
 } from "@react-three/drei";
-import { Model } from "./CV_Center";
+
+const Canvas = lazy(() => import('./ThreeCanvas'))
+const Model = lazy(() => import('./CV_Center'))
+const OrbitControls = lazy(() => import('./OrbitControls'))
 
 function Loader() {
   const { progress } = useProgress();
@@ -19,11 +19,10 @@ const VoxelArt = () => {
       <Suspense fallback={<Loader />}>
         <OrbitControls enabled autoRotate />
         <Model scale={1.75} />
-        <Environment preset="sunset" />
         <ambientLight intensity={1} />
       </Suspense>
     </Canvas>
-  );
+  ); 
 };
 
 export default VoxelArt;

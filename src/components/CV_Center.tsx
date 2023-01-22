@@ -16,7 +16,7 @@ type GLTFResult = GLTF & {
   };
 };
 
-export function Model(props: JSX.IntrinsicElements["group"]) {
+function Model(props: JSX.IntrinsicElements["group"]) {
   const { nodes, materials } = useGLTF(
     "/CV_Center_D.glb"
   ) as unknown as GLTFResult;
@@ -33,3 +33,5 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
 }
 
 useGLTF.preload("/CV_Center_D.glb");
+
+export default Model
