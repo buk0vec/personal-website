@@ -1,4 +1,6 @@
 ---
+import DarkToggle from "../components/DarkToggle";
+
 export interface Props {
   title?: string;
 }
@@ -6,7 +8,24 @@ export interface Props {
 const { title } = Astro.props;
 ---
 
-<!DOCTYPE html>
+<script is:inline>
+  const theme = (() => {
+    if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
+      return localStorage.getItem("theme");
+    }
+    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      return "dark";
+    }
+    return "light";
+  })();
+
+  if (theme === "light") {
+    document.documentElement.classList.remove("dark");
+  } else {
+    document.documentElement.classList.add("dark");
+  }
+</script>
+
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -15,14 +34,27 @@ const { title } = Astro.props;
     <meta name="generator" content={Astro.generator} />
     <title>{title ? `${title} - ` : ""}Nick Bukovec</title>
   </head>
-  <body class="bg-stone-200">
-    <nav class='px-4 pt-6 pb-2'>
-      <div class='flex flex-row items-baseline gap-4 justify-center'>
-        <a href='/' class='text-xl font-semibold text-black hover:text-purple-900'>Home</a>
-        <a href='/about' class='text-xl font-semibold text-black hover:text-purple-900'>About</a>
-        <a href='/portfolio' class='text-xl font-semibold text-black hover:text-purple-900'>Portfolio</a>
-      </div>
-    </nav>
+  <body class="bg-stone-200 dark:bg-stone-800 mt-4 transition-colors">
+    <div class="flex flex-row justify-between mx-auto max-w-xl items-center pb-4 px-4 sm:px-0">
+      <nav class="flex flex-row items-baseline gap-4 justify-center">
+          <a
+            href="/"
+            class="text-xl font-semibold text-black hover:text-purple-900 dark:text-white"
+            >Home</a
+          >
+          <a
+            href="/about"
+            class="text-xl font-semibold text-black hover:text-purple-900 dark:text-white"
+            >About</a
+          >
+          <a
+            href="/portfolio"
+            class="text-xl font-semibold text-black hover:text-purple-900 dark:text-white"
+            >Portfolio</a
+          >
+      </nav>
+      <DarkToggle client:load />
+    </div>
     <slot />
   </body>
 </html>

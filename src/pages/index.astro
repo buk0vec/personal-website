@@ -10,9 +10,9 @@ import Headshot from "../assets/headshot.jpeg";
   <main class="sm:px-4 px-2 py-4">
     <div class="flex md:flex-row flex-col-reverse">
       <section class="sm:pl-9 px-2 md:pr-2 py-4 min-w-1/2">
-        <h1 class="text-4xl font-extrabold pb-2">
+        <h1 class="text-4xl font-extrabold pb-2 text-black dark:text-white transition-colors">
           <div
-            class="sm:block inline-block align-baseline mx-2 rounded-full border-4 w-fit h-fit border-black overflow-hidden"
+            class="sm:block inline-block align-baseline mx-2 rounded-full border-4 w-fit h-fit border-black dark:border-neutral-300 overflow-hidden"
           >
             <Image width={128} height={128} src={Headshot} alt="Headshot" />
           </div>
@@ -20,7 +20,7 @@ import Headshot from "../assets/headshot.jpeg";
             >Nick&nbsp;<LastName client:idle /></span
           >
         </h1>
-        <p class="text-lg">
+        <p class="text-lg text-black dark:text-white">
           I am an undergraduate student studying Computer Science at <span
             class="font-bold">California Polytechnic State University.</span
           >
