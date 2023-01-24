@@ -4,10 +4,16 @@ module.exports = {
 	theme: {
 		extend: {
       minWidth: {
-        '1/2': '50%'
+        '1/2': '50%',
+        '2/5': '40%'
+      },
+      colors: {
+        'dark-indigo': "#0a0919"
       }
     },
 	},
-	plugins: [],
+	plugins: [
+    require('@tailwindcss/typography'),
+  ],
   darkMode: 'class'
 }

@@ -1,0 +1,16 @@
+---
+import { Image } from "@astrojs/image/components";
+import Headshot from "../assets/headshot.jpeg";
+
+interface Props {
+  style?: string
+}
+
+const { style }: Props = Astro.props
+---
+
+<div
+class={`${style ? style + ' ': ''}mx-2 rounded-full border-4 w-fit h-fit border-black dark:border-neutral-300 overflow-hidden`}
+>
+  <Image width={128} height={128} src={Headshot} alt="Headshot" />
+</div>

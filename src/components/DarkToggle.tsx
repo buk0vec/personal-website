@@ -28,12 +28,12 @@ const DarkToggle = () => {
   
   return (
     <button className="h-fit" onClick={handleClick}>
-      <div className="p-1 rounded-md bg-stone-300 dark:bg-stone-700 hover:outline outline-2 outline-black dark:outline-neutral-400">
+      <div className="p-1 rounded-md outline outline-2 hover:bg-slate-800 dark:hover:bg-neutral-400 transition-colors outline-black dark:outline-neutral-400 group">
         {
           loaded ? (theme === "light" ? (
-            <TbMoonStars size={"1.5em"} className="stroke-black" />
+            <TbMoonStars size={"1.5em"} className="stroke-black group-hover:stroke-white transition-colors" />
           ) : (
-            <IoSunnyOutline size={"1.5em"} className="stroke-neutral-400" />
+            <IoSunnyOutline size={"1.5em"} className="stroke-neutral-400 group-hover:stroke-black transition-colors" />
           )) : <div className="h-6 w-6"></div>
         }
 
