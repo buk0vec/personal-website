@@ -27,7 +27,7 @@ const DarkToggle = () => {
   }
   
   return (
-    <button className="h-fit" onClick={handleClick}>
+    <button className="h-fit" onClick={handleClick} aria-label="Dark Toggle">
       <div className="p-1 rounded-md outline outline-2 hover:bg-slate-800 dark:hover:bg-neutral-400 transition-colors outline-black dark:outline-neutral-400 group">
         {
           loaded ? (theme === "light" ? (
