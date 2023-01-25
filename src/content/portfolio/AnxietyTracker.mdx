@@ -1,5 +1,5 @@
 ---
-title: Anxiety Tracker
+title: Anxiety Record
 status: Complete
 description: A dashboard for tracking anxiety and panic attacks built with Sveltekit, Tailwind, and Prisma
 image: AnxietyTracker-1.png
@@ -8,4 +8,38 @@ github: https://github.com/buk0vec/anxiety-tracker
 deployment: https://anxiety-tracker.vercel.app/
 ---
 
-**Coming soon...**
+This project is based off the objective reporting methods outlined in [Mastering Your Anxiety and Panic](https://academic.oup.com/book/1262)
+that are used to track daily anxiety and worry levels along with occasional panic attacks. I made it because the strategy recommended by the
+book is "just print out all these worksheets every day" which I don't think is very feasable for most people.
+
+## Stack
+
+I built this project using **Sveltekit, Tailwind, and Prisma**. I chose Sveltekit for my web framework since I've been getting pretty into
+Svelte recently and I thought it would be a good choice for a smaller dashboard like this one. I also liked the way it handled form actions
+which this project uses a lot of. I used Tailwind to do some quick and dirty styling for the project because I didn't want to spend a bunch
+of time messing with CSS and I mostly wanted to focus on the features. I used Prisma to communicate with the database on the server side
+which made managing the shape of my data and my queries a whole lot easier thanks to typesafety.
+
+## Features
+
+The dashboard is used for both daily check-ins and for panic attack reporting. The dashboard detects if you've already done a check-in for
+the day, but allows you to make-up check-ins for previous days or resubmit check-ins if you want. The home page features a chart that plots
+your average anxiety level per week that using Chart.js. Panic attack reporting is done using a specific set of parameters, and you can view
+all your records in the "Records" tab.
+
+All of the server requests are done through HTML form actions, meaning you can interact with the server w/o JS enabled. In fact, everything
+minus the chart works without JS enabled (ex. cards auto-expand).
+
+The site is also password protected with a basic cookie scheme. Without the proper cookie set, you cannot access the frontend nor the backend
+routes thanks to Sveltekit's `hooks.server.ts`.
+
+I also used responsive design with Tailwind to make the dashboard viewable on all screen sizes. For example, daily check-ins and panic attacks
+on the "Records" tab are side-by-side on larger screens, but on smaller screens only one of the categories shows with a toggle to switch
+between them. 
+
+The project is deployed on Vercel, and Prisma is connected to a Postgres instance on Railway.
+
+## Status
+
+Mostly complete! The one thing I might add in the future is validation of my form actions with [Zod](https://github.com/colinhacks/zod), along
+with some less-minimalistic styling, but other than that I have all the features that I wanted in here.
