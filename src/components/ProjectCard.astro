@@ -1,0 +1,22 @@
+---
+interface Props {
+  title: string
+  description: string
+  image?: string
+  slug: string
+}
+
+const { title, description, image, slug } = Astro.props
+
+import { Image } from '@astrojs/image/components';
+---
+
+<a href={`/portfolio/${slug}`}>
+  <div class='border-4 rounded-md border-black dark:border-teal-200 my-4 overflow-hidden group hover:scale-101 transition-transform'>
+    <div class='max-w-xl overflow-hidden'>
+      {image && <Image src={'/' + image} alt={title} height={200} width={576} fit='cover' position='entropy' class='group-hover:scale-105 transition-transform' />}
+    </div>
+    <h3 class='font-bold text-2xl px-4 pt-4 dark:text-white'>{title}</h3>
+    <p class='px-4 pb-4 dark:text-white'>{description}</p>
+  </div>
+</a>

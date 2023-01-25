@@ -1,0 +1,14 @@
+---
+import ProjectCard from '../../components/ProjectCard.astro';
+import Layout from '../../layouts/Layout.astro'
+import { getCollection } from 'astro:content';
+
+const allProjects = await getCollection('portfolio')
+---
+
+<Layout title="Portfolio">
+  <main class='max-w-xl md:mx-auto mx-4'>
+    <h1 class='text-4xl font-extrabold dark:text-white'>Portfolio</h1>
+    {allProjects.map(p => <ProjectCard title={p.data.title} description={p.data.description} image={p.data.image} slug={p.slug}/>)}
+</main>
+</Layout>

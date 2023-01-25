@@ -9,6 +9,9 @@ module.exports = {
       },
       colors: {
         'dark-indigo': "#0a0919"
+      },
+      scale: {
+        '101': '101%'
       }
     },
 	},
