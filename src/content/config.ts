@@ -1,4 +1,5 @@
 import { z, defineCollection } from 'astro:content'
+import type { z as z2 }from 'astro/zod'
 
 const portfolioSchema = z.object({
   title: z.string(),
@@ -17,3 +18,5 @@ const portfolioCollection = defineCollection({
 export const collections = {
   'portfolio': portfolioCollection
 }
+
+export type portfolioData = z2.infer<typeof portfolioSchema>

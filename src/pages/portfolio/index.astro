@@ -1,14 +1,39 @@
 ---
-import ProjectCard from '../../components/ProjectCard.astro';
-import Layout from '../../layouts/Layout.astro'
-import { getCollection } from 'astro:content';
+// import ProjectCard from "../../components/ProjectCard.astro";
+import SortableCardList from "../../components/SortableCardList";
+import Layout from "../../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+import { getImage } from "@astrojs/image";
+import InvertSort from "../../components/InvertSort";
+import SortParamBox from "../../components/SortParamBox";
 
-const allProjects = await getCollection('portfolio')
+const allProjects = await getCollection("portfolio");
+
+const projectsWithCardImages = await Promise.all(
+  allProjects.map(async (p) => ({
+    ...p.data,
+    slug: p.slug,
+    imgProps: p.data.image
+      ? await getImage({
+          src: "/" + p.data.image,
+          alt: p.data.title,
+          height: 200,
+          width: 576,
+          fit: "cover",
+          position: "entropy",
+        })
+      : null,
+  }))
+);
 ---
 
 <Layout title="Portfolio">
-  <main class='max-w-xl md:mx-auto mx-4'>
-    <h1 class='text-4xl font-extrabold dark:text-white'>Portfolio</h1>
-    {allProjects.map(p => <ProjectCard title={p.data.title} description={p.data.description} image={p.data.image} slug={p.slug}/>)}
-</main>
+  <main class="max-w-xl md:mx-auto mx-4">
+    <h1 class="text-4xl font-extrabold dark:text-white">Portfolio</h1>
+    <div class="flex flex-row justify-between items-baseline py-2">
+      <SortParamBox client:idle />
+      <InvertSort client:idle />
+    </div>
+    <SortableCardList data={projectsWithCardImages} client:load />
+  </main>
 </Layout>
