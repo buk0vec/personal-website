@@ -12,6 +12,9 @@ module.exports = {
       },
       scale: {
         '101': '101%'
+      },
+      width: {
+        'xl': '36rem'
       }
     },
 	},
