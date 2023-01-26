@@ -1,0 +1,53 @@
+---
+title: Personal Webite
+status: WIP
+description: The very website that you are looking at right now!
+lastUpdated: 2023-01-25
+github: https://github.com/buk0vec/personal-website
+deployment: https://bukovec.dev
+---
+import { Image } from "@astrojs/image/components";
+
+I finally got the energy to build my own website to advertise myself and to showcase what I work on. I was really excited about using
+[Astro](https://astro.build) for this project, and I wanted to see how much I liked it (spoiler alert: I like it a lot).
+
+## Stack
+
+This project uses **Astro** along with some **React** components that I wrote. I also used [react-three-fiber](https://github.com/pmndrs/react-three-fiber)
+to render my little computer guy on the main page (his name is Fred :D). The whole thing is pre-rendered, so no backend needed for this one.
+It's also styled with **Tailwind**. 
+
+## Features
+
+The homepage features my name with some typing animation that I made with React, along with Fred the cave-bound terminal. I modeled Fred
+using MagicaVoxel and then rendered him out with react-three-fiber, using [gltf-pipeline](https://github.com/CesiumGS/gltf-pipeline) to
+lower the size of the model. My About page is rendered-out Markdown styled with Tailwind, nothing too fancy going on there. For my porfolio,
+I'm using **Astro's content collections** to standardize my content so I can make the little preview cards and generate the pages from
+Markdown or MDX. You can see how the schema contributes to the heading of this article!
+
+```ts
+import { z, defineCollection } from 'astro:content'
+
+const portfolioSchema = z.object({
+  title: z.string(),
+  status: z.enum(['Complete', 'WIP']),
+  description: z.string(),
+  image: z.string().optional(),
+  lastUpdated: z.date(),
+  github: z.string().optional(),
+  deployment: z.string().optional()
+})
+```
+
+## Status
+
+I'm still working on this website and I want to improve it even more.
+
+### Todo
+
+- Make the home page have more than just a summary of myself. Add more cool stuff.
+- Add a decent footer
+- Optimize rendering strategy for Fred because for some reason it makes my Pagespeed score awful (the rest of the website is extremely fast
+though!)
+- Add the rest of my projects
+- Add a way to sort my projects
