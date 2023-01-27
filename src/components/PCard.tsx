@@ -17,7 +17,7 @@ const ProjectCard = ({
   lastUpdated
 }: ProjectCardProps) => {
   return (
-    <a href={`/portfolio/${slug}`}>
+    <a href={`/portfolio/${slug}`} rel='prefetch'>
       <div className="border-4 rounded-md border-black dark:border-teal-200 my-4 overflow-hidden group hover:scale-101 transition-transform">
         <div className="max-w-xl overflow-hidden">
           {
