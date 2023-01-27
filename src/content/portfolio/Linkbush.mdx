@@ -1,0 +1,121 @@
+---
+title: Linkbush
+status: Complete
+description: Express API for a Linktree clone using MongoDB and Zod, along with some other DevOps goodies
+lastUpdated: 2022-12-02
+github: https://github.com/buk0vec/linkbush
+---
+
+For my Intro to Software Engineering course, my group members and I decided to make a rough clone of [Linktree](https://linktr.ee/) over
+the course of roughly eight weeks. I took on the challenge of creating the backend using Express, along with handling CI/CD, monorepo setup,
+and type generation.
+
+## Stack
+
+The backend was served with Express, which connected to a MongoDB Atlas cluster using Mongoose as the ORM. The monorepo, which included the
+React w/ Vite frontend + ESLint configs + backend response types, was managed w/ [Turborepo](https://turbo.build/). We deployed the frontend
+and backend on Azure w/ Github Actions. I also wrote a whole bunch of test cases using Jest to test object operations.
+
+## Features
+
+Most of the API features require user authentication, which is done by creating, validating, and setting JSON Web Tokens in a session cookie. 
+Some routes, such as getting a page's content, are not protected, but most POST routes require the user to be logged in. All user and page
+data is stored in MongoDB and accessed via Mongoose. 
+
+```ts
+// Page POST Authentication Guard
+router.post("*", async (req, res, next) => {
+  const token = req.cookies["Authorization"];
+  if (token) {
+    if (process.env.JWT_SECRET) {
+      try {
+        const decoded = verify(token, process.env.JWT_SECRET);
+        const username = typeof decoded == "string" ? decoded : decoded.name;
+        if (res.locals != undefined) {
+          res.locals.username = username;
+          next();
+        } else {
+          res
+            .status(503)
+            .send({ error: true, message: "Internal server error" });
+        }
+      } catch {
+        res.clearCookie("Authorization");
+        res.status(401).send({ error: true, message: "Bad token" });
+      }
+    } else {
+      res.status(503).send({ error: true, message: "Internal server error" });
+    }
+  } else {
+    res.status(401).send({ error: true, message: "No token" });
+  }
+});
+```
+
+I had to create a whole bunch of POST routes to edit various aspects of the page, like adding/editing links or the theme, but I really didn't
+want to create them all by hand. That's where [Zod](https://github.com/colinhacks/zod) really came in handy. I was already using Zod to
+validate the data coming into some of my endpoints, but I realized I could also use it to define and generalize a whole bunch of logic for
+interacting with MongoDB. I created a `basePageUpdate` function that took in two args: a Zod schema and another function that took in a 
+username and some data that needed to be added/updated/removed from MongoDB. `basePageUpdate` would then return a function that took in `req`
+and `res` objects and handled my general server logic. 
+
+```ts
+type PageUpdater = (username: string, data: any) => any;
+
+// Field updater for a page, takes in req res and a schema and updates an immediate field
+// @eslint/no-unused-vars
+const basePageUpdate = (schema: z.Schema, processor: PageUpdater) => {
+  return async (req: express.Request, res: express.Response) => {
+    const { username } = res.locals;
+    const body = schema.safeParse(req.body);
+    if (body.success) {
+      try {
+        const updated = await processor(username, body.data);
+        if (updated) {
+          res.status(200).send({
+            error: false,
+            message: "Page updated",
+            body: updated,
+          });
+        } else {
+          res.status(404).send({
+            error: true,
+            message:
+              "Resource " +
+              (body.data._id ? body.data._id : username) +
+              " does not exist",
+          });
+        }
+      } catch {
+        res.status(503).send({ error: true, message: "Internal server error" });
+        return;
+      }
+    } else {
+      res.status(400).send({
+        error: true,
+        message:
+          body.error.issues[0].path + " - " + body.error.issues[0].message,
+      });
+    }
+  };
+};
+```
+
+I could then easily create endpoints with this general logic to do various CRUD operations to the pages, saving a bunch of time:
+
+```ts
+export const pageTitleReqSchema = z
+  .object({ title: z.string().min(1) })
+  .strict();
+
+router.post("/title", basePageUpdate(pageTitleReqSchema, updatePage));
+```
+
+I used Jest to test if my `PageUpdater` functions worked as intended, including if they handled DB connection errors, and I handled the 
+CI/CD pipeline with Github Actions and Azure. The whole project was in a Turborepo monorepo and included a shared ESLint config between
+the frontend and the backend. I also wrote types for all the responses from the API so the frontend team knew what to expect when they
+interacted with it.
+
+## Status
+
+This was for a school project, took a lot of work, and I am happy to say that I am not touching it anymore!

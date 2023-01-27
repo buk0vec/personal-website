@@ -14,6 +14,7 @@ const ProjectCard = ({
   description,
   slug,
   imgProps,
+  lastUpdated
 }: ProjectCardProps) => {
   return (
     <a href={`/portfolio/${slug}`}>
@@ -27,7 +28,8 @@ const ProjectCard = ({
         <h2 className="font-bold text-2xl px-4 pt-4 dark:text-white">
           {title}
         </h2>
-        <p className="px-4 pb-4 dark:text-white">{description}</p>
+        <p className="px-4 dark:text-white">{description}</p>
+        <p className="px-4 pb-4 dark:text-white">Last updated {lastUpdated.toDateString()}</p>
       </div>
     </a>
   );
