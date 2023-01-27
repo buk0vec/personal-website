@@ -47,6 +47,9 @@ const { title, description, type } = Astro.props;
     <meta name="og:url" content={Astro.url} />
     <meta name="og:image" content={new URL('/og.png', Astro.url)} />
     <meta name="og:content" content={type} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@buk0vec" />
+    <meta name="twitter:creator" content="@buk0vec" />
     <title>{title ? `${title} - ` : ""}Nick Bukovec</title>
     <script defer type="text/partytown" src="/_vercel/insights/script.js"></script>
   </head>
