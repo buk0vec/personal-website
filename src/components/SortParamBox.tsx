@@ -1,17 +1,24 @@
 import { Switch } from "@headlessui/react";
 import { AiOutlineClockCircle } from "react-icons/ai/index.js";
-import { MdOutlineSortByAlpha } from 'react-icons/md/index.js'
-import { useStore } from '@nanostores/react'
+import { MdOutlineSortByAlpha } from "react-icons/md/index.js";
+import { useStore } from "@nanostores/react";
 import { method } from "../stores/projectStore";
 
 const SortParamBox = () => {
-  const $method = useStore(method)
+  const $method = useStore(method);
 
   return (
-    <div className='flex flex-row gap-2'>
-      <AiOutlineClockCircle size={24} className="dark:fill-white cursor-pointer" onClick={() => method.set(0)}/>
+    <div className="flex flex-row gap-2">
+      <AiOutlineClockCircle
+        size={24}
+        className="dark:fill-white cursor-pointer"
+        onClick={() => method.set(0)}
+        role="button"
+        aria-label="Sort by last updated"
+        title="Sort by last updated"
+      />
       <Switch
-        aria-label='Sort method'
+        aria-label="Sort method"
         checked={$method === 1}
         onClick={() => method.set($method === 0 ? 1 : 0)}
         className={`${$method === 1 ? "bg-teal-900" : "bg-teal-700"}
@@ -23,8 +30,15 @@ const SortParamBox = () => {
             pointer-events-none inline-block h-[20px] w-[20px] transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out`}
         />
       </Switch>
-      <MdOutlineSortByAlpha size={24} className="dark:fill-white cursor-pointer" onClick={() => method.set(1)}/>
-      </div>
+      <MdOutlineSortByAlpha
+        size={24}
+        className="dark:fill-white cursor-pointer"
+        onClick={() => method.set(1)}
+        role="button"
+        aria-label="Sort by alphabetical order"
+        title="Sort by alphabetical order"
+      />
+    </div>
   );
 };
 

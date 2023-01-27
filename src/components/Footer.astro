@@ -1,21 +1,38 @@
 ---
 import { AiOutlineGithub, AiFillLinkedin } from "react-icons/ai/index.js";
-
 ---
 
-
-
 <footer>
-  <div class='flex flex-row mt-8 mb-4 max-w-xl mx-auto justify-between items-end'>
-    <p class='font-light dark:text-white text-sm'>
+  <div
+    class="flex flex-row mt-8 mb-4 max-w-xl mx-auto justify-between items-end"
+  >
+    <p class="font-light dark:text-white text-sm">
       © {new Date().getFullYear()} Nick Bukovec.
     </p>
-    <div class='flex flex-row gap-2'>
-      <a href={'https://github.com/buk0vec/personal-website'} target="_blank" class="group">
-        <AiOutlineGithub size={32} className="dark:fill-white group-hover:fill-slate-600 dark:group-hover:fill-slate-300"/>
+    <div class="flex flex-row gap-2">
+      <a
+        href={"https://github.com/buk0vec/personal-website"}
+        target="_blank"
+        class="group"
+        aria-label="Github"
+        title="Github"
+      >
+        <AiOutlineGithub
+          size={32}
+          className="dark:fill-white group-hover:fill-slate-600 dark:group-hover:fill-slate-300"
+        />
       </a>
-      <a href={'https://www.linkedin.com/in/bukovec/'} target="_blank" class="group">
-        <AiFillLinkedin size={32} className="dark:fill-white group-hover:fill-slate-600 dark:group-hover:fill-slate-300"/>
+      <a
+        href={"https://www.linkedin.com/in/bukovec/"}
+        target="_blank"
+        class="group"
+        aria-label="LinkedIn"
+        title="LinkedIn"
+      >
+        <AiFillLinkedin
+          size={32}
+          className="dark:fill-white group-hover:fill-slate-600 dark:group-hover:fill-slate-300"
+        />
       </a>
     </div>
   </div>
