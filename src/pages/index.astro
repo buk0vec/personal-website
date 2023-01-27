@@ -5,16 +5,18 @@ import LastName from "../components/LastName";
 import Avatar from "../components/Avatar.astro";
 ---
 
-<Layout>
+<Layout description="Nick Bukovec's website, a developer and student">
   <main class="sm:px-4 px-2 py-4">
     <div class="flex md:flex-row flex-col-reverse justify-between">
       <section class="sm:ml-12 ml-auto md:pr-2 py-4">
-        <h1 class="text-4xl font-extrabold pb-2 text-black dark:text-white">
+        <div class="sm:flex flex-row flex-wrap items-baseline">
           <Avatar style="sm:block inline-block align-baseline" />
-          Hi, I'm <span class="text-green-700 text-5xl lg:inline block"
-            >Nick&nbsp;<LastName client:idle /></span
-          >
-        </h1>
+          <h1 class="text-4xl font-extrabold pb-2 text-black dark:text-white">
+            Hi, I'm <span class="text-green-700 text-5xl lg:inline block"
+              >Nick&nbsp;<LastName client:idle /></span
+            >
+          </h1>
+        </div>
         <p class="text-lg text-black dark:text-white">
           I am an undergraduate student studying Computer Science at <span
             class="font-bold">California Polytechnic State University.</span

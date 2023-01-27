@@ -16,7 +16,7 @@ export async function getStaticPaths() {
 
 const {
   entry: {
-    data: { title, image, status, lastUpdated, github, deployment },
+    data: { title, image, status, lastUpdated, github, deployment, description },
     render,
   },
 } = Astro.props;
@@ -24,7 +24,7 @@ const {
 const { Content } = await render();
 ---
 
-<Layout {title}>
+<Layout {title} description={description}>
   <article class="max-w-xl md:mx-auto mx-4 prose dark:prose-invert">
     <div class="flex flex-row items-center gap-2 flex-wrap">
       <h1 class="text-4xl font-extrabold dark:text-white mb-0">{title}</h1>
