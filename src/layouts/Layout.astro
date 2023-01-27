@@ -5,9 +5,10 @@ import Footer from "../components/Footer.astro";
 export interface Props {
   title?: string;
   description: string;
+  type: 'website' | 'article'
 }
 
-const { title, description } = Astro.props;
+const { title, description, type } = Astro.props;
 ---
 
 <script is:inline>
@@ -41,6 +42,11 @@ const { title, description } = Astro.props;
     <meta name="theme-color" content="#ffffff" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
+    <meta name="og:title" content={`${title ? `${title} - ` : ""}Nick Bukovec`}/>
+    <meta name="og:description" content={description} />
+    <meta name="og:url" content={Astro.url} />
+    <meta name="og:image" content={new URL('/og.png', Astro.url)} />
+    <meta name="og:content" content={type} />
     <title>{title ? `${title} - ` : ""}Nick Bukovec</title>
     <script defer type="text/partytown" src="/_vercel/insights/script.js"></script>
   </head>
