@@ -11,7 +11,7 @@ const SortParamBox = () => {
     <div className="flex flex-row gap-2">
       <AiOutlineClockCircle
         size={24}
-        className="dark:fill-white cursor-pointer"
+        className="dark:fill-white cursor-pointer hover:fill-slate-600 dark:hover:fill-slate-300"
         onClick={() => method.set(0)}
         role="button"
         aria-label="Sort by last updated"
@@ -32,7 +32,7 @@ const SortParamBox = () => {
       </Switch>
       <MdOutlineSortByAlpha
         size={24}
-        className="dark:fill-white cursor-pointer"
+        className="dark:fill-white cursor-pointer hover:fill-slate-600 dark:hover:fill-slate-300"
         onClick={() => method.set(1)}
         role="button"
         aria-label="Sort by alphabetical order"
