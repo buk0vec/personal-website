@@ -27,7 +27,7 @@ const projectsWithCardImages = await Promise.all(
 );
 
 const topTwo = projectsWithCardImages
-  .sort((a, b) => a.lastUpdated.getTime() - b.lastUpdated.getTime())
+  .sort((a, b) => b.lastUpdated.getTime() - a.lastUpdated.getTime())
   .slice(0, 2);
 ---
 
