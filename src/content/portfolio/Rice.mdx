@@ -1,0 +1,43 @@
+---
+title: Rice
+status: WIP
+description: Sveltekit + Supabase realtime app for tracking who is making rice for large households
+lastUpdated: 2022-12-29
+github: https://github.com/buk0vec/rice
+image: Rice-1.png
+---
+
+This is a bit of a goofy project. I lived in a house with 12 people this year, and we had three separate rice cookers between us. People were
+always making rice, and people always needed rice, but we never had a good system for tracking who was making rice or how much rice was being
+made. As kind of a joke, I started making a web application to solve this (multiple people have told me that this is easily solved with a 
+simple "I'm making rice, who wants some?" text, but I say that clogs up the group chat). 
+
+## Stack
+
+This project uses Sveltekit for the frontend + API routes and [Supabase](https://supabase.com/) for the database and authentication service.
+Supabase has been awesome to use and the realtime functionality is super cool for a project like this. I'm also styling with Tailwind, and
+I'm using [Skeleton](https://www.skeleton.dev/) for a UI toolkit. I've had a pretty great experience using Skeleton and it's made stuff like
+modals and side bars really easy.
+
+## Features
+
+Users can create an account and sign in and out of the application. They can create a kitchen for their housemates and then create a rice event
+when they plan on making rice. The rice event lasts for some amount of time that they can specify (e.g. 10 minutes), and then from there the
+other house members have that amount of time to respond with whether they want rice and how much rice to add to the rice cooker.
+
+This is all done with Supabase authentication and realtime subscriptions. When loading the page, the server makes the appropriate subscriptions
+and passes them to the client. The main application also cannot be accessed if you are not signed in. Most of the functionality such as creating
+a rice event is done using form actions rather than client-side fetch calls.
+
+## Status
+
+This project is very much not finished, and I want to work on it more when I have time as it's a cool realtime Supabase/Sveltekit demo that 
+isn't just a chat app. I want to add stuff like push notifications and maybe convert it into a mobile-compatible PWA, although I'll be more
+motivated if iOS Safari adds support for web push.
+
+### Todo
+
+- Add a way for users to join kitchens with short codes
+- Add a way for users to respond rice events with how much rice they want
+- Add a good summary view for people who are making rice
+- PWA + push notification support

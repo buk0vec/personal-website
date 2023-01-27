@@ -25,8 +25,8 @@ const SortableCardList = ({ data }: SortableCardListProps) => {
             : b.lastUpdated.getTime() - a.lastUpdated.getTime();
         }
         return $invert
-          ? a.title.localeCompare(b.title)
-          : b.title.localeCompare(a.title);
+          ? b.title.localeCompare(a.title)
+          : a.title.localeCompare(b.title);
       }),
     [data, $invert, $method]
   );
