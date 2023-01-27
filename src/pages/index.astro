@@ -3,12 +3,38 @@ import VoxelArt from "../components/VoxelArt";
 import Layout from "../layouts/Layout.astro";
 import LastName from "../components/LastName";
 import Avatar from "../components/Avatar.astro";
+import { getCollection } from "astro:content";
+import { getImage } from "@astrojs/image";
+import ProjectCard from "../components/PCard";
+
+const allProjects = await getCollection("portfolio");
+
+const projectsWithCardImages = await Promise.all(
+  allProjects.map(async (p) => ({
+    ...p.data,
+    slug: p.slug,
+    imgProps: p.data.image
+      ? await getImage({
+          src: "/" + p.data.image,
+          alt: p.data.title,
+          height: 200,
+          width: 576,
+          fit: "cover",
+          position: "entropy",
+        })
+      : null,
+  }))
+);
+
+const topTwo = projectsWithCardImages
+  .sort((a, b) => a.lastUpdated.getTime() - b.lastUpdated.getTime())
+  .slice(0, 2);
 ---
 
 <Layout description="Nick Bukovec's website, a developer and student">
   <main class="sm:px-4 px-2 py-4">
     <div class="flex md:flex-row flex-col-reverse justify-between">
-      <section class="sm:ml-12 ml-auto md:pr-2 py-4">
+      <section class="sm:ml-12 mx-auto md:pr-2 py-4">
         <div class="sm:flex flex-row flex-wrap items-baseline">
           <Avatar style="sm:block inline-block align-baseline" />
           <h1 class="text-4xl font-extrabold pb-2 text-black dark:text-white">
@@ -17,23 +43,59 @@ import Avatar from "../components/Avatar.astro";
             >
           </h1>
         </div>
-        <p class="text-lg text-black dark:text-white">
-          I am an undergraduate student studying Computer Science at <span
-            class="font-bold">California Polytechnic State University.</span
-          >
-          <br />
-          I am a <span class="font-bold">Student Lead</span> for the Service Desk
-          at <span class="font-bold"
-            >Cal Poly Information Technology Services.</span
-          >
-          <br />
-          I like web and fullstack development, data analysis, machine learning,
-          and optimization.
+        <p class="text-2xl text-black dark:text-white">I am a:</p>
+        <ul class="">
+          <li>
+            <p class="text-3xl font-bold text-black dark:text-white">
+              - Student
+            </p>
+          </li>
+          <li>
+            <p class="text-3xl font-bold text-black dark:text-white">
+              - Developer
+            </p>
+          </li>
+          <li>
+            <p class="text-3xl font-bold text-black dark:text-white">
+              - Learner
+            </p>
+          </li>
+          <li>
+            <p class="text-3xl font-bold text-black dark:text-white">
+              - Problem Solver
+            </p>
+          </li>
+          <li>
+            <p class="text-3xl font-bold text-black dark:text-white">
+              - Outdoorsman
+            </p>
+          </li>
+        </ul>
+        <p class="text-2xl font-semibold text-black dark:text-white">
+          (But not in that particular order)
         </p>
       </section>
       <div class="min-h-96 h-96 md:min-w-2/5 min-w-full">
         <VoxelArt client:only="react" />
       </div>
     </div>
+    <section class="mx-10 flex flex-col items-center">
+      <h1 class="font-bold text-2xl dark:text-white">Recent Projects</h1>
+      <a
+        href="/portfolio"
+        rel="prefetch"
+        class="font-semibold underline underline-offset-2 hover:text-gray-500 dark:text-white dark:hover:text-gray-300"
+        >(View all)</a
+      >
+      <div class="flex flex-col gap-2">
+        {
+          topTwo.map((r) => (
+            <div class="max-w-xl">
+              <ProjectCard {...r} />{" "}
+            </div>
+          ))
+        }
+      </div>
+    </section>
   </main>
 </Layout>
