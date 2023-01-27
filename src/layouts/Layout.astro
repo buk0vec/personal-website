@@ -47,9 +47,20 @@ const { title, description, type } = Astro.props;
     <meta name="og:url" content={Astro.url} />
     <meta name="og:image" content={new URL('/og.png', Astro.url)} />
     <meta name="og:content" content={type} />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@buk0vec" />
-    <meta name="twitter:creator" content="@buk0vec" />
+    <!-- Facebook Meta Tags -->
+    <meta property="og:url" content="https://www.bukovec.dev/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Nick Bukovec">
+    <meta property="og:description" content="Nick Bukovec - Developer and Student and Learner and a whole bunch of other stuff">
+    <meta property="og:image" content="https://www.bukovec.dev/og.png">
+
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="twitter:domain" content="bukovec.dev">
+    <meta property="twitter:url" content="https://www.bukovec.dev/">
+    <meta name="twitter:title" content="Nick Bukovec">
+    <meta name="twitter:description" content="Nick Bukovec - Developer and Student and Learner and a whole bunch of other stuff">
+    <meta name="twitter:image" content="https://www.bukovec.dev/og.png">
     <title>{title ? `${title} - ` : ""}Nick Bukovec</title>
     <script defer type="text/partytown" src="/_vercel/insights/script.js"></script>
   </head>
