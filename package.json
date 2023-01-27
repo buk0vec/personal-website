@@ -13,6 +13,7 @@
   "dependencies": {
     "@astrojs/image": "^0.13.0",
     "@astrojs/mdx": "^0.15.0",
+    "@astrojs/partytown": "^1.0.3",
     "@astrojs/prefetch": "^0.1.1",
     "@astrojs/react": "^2.0.0",
     "@astrojs/sitemap": "^1.0.0",
@@ -23,6 +24,7 @@
     "@react-three/fiber": "^8.10.0",
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
+    "@vercel/analytics": "^0.1.8",
     "astro": "^2.0.1",
     "astro-compress": "^1.1.28",
     "nanostores": "^0.7.1",
