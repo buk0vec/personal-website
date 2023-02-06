@@ -4,7 +4,7 @@ import Layout from "../../layouts/Layout.astro";
 import { getCollection } from "astro:content";
 import { getImage } from "@astrojs/image";
 import InvertSort from "../../components/InvertSort";
-import SortParamBox from "../../components/SortParamBox";
+import SortMethodSlider from "../../components/SortMethodSlider";
 
 const allProjects = await getCollection("portfolio");
 
@@ -30,7 +30,7 @@ const projectsWithCardImages = await Promise.all(
   <main class="max-w-xl md:mx-auto mx-4">
     <h1 class="text-4xl font-extrabold dark:text-white">Portfolio</h1>
     <div class="flex flex-row justify-between items-baseline py-2">
-      <SortParamBox client:idle />
+      <SortMethodSlider client:idle />
       <InvertSort client:idle />
     </div>
     <SortableCardList data={projectsWithCardImages} client:load />
