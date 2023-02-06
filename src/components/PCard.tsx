@@ -29,7 +29,7 @@ const ProjectCard = ({
           {title}
         </h2>
         <p className="px-4 dark:text-white">{description}</p>
-        <p className="px-4 pb-4 dark:text-white">Last updated {lastUpdated.toDateString()}</p>
+        <p className="px-4 pb-4 dark:text-white">Last updated {lastUpdated.toUTCString().slice(0, lastUpdated.toUTCString().length - 13)}</p>
       </div>
     </a>
   );
