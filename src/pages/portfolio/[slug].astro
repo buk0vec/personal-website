@@ -1,7 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
-import { Image } from "@astrojs/image/components";
+import { Image } from "astro:assets";
 import ProjectStatus from "../../components/ProjectStatus";
 import { AiOutlineGithub } from "react-icons/ai/index.js";
 import { MdOutlineWeb } from "react-icons/md/index.js";
@@ -30,6 +30,7 @@ const { Content } = await render();
       <h1 class="text-4xl font-extrabold dark:text-white mb-0">{title}</h1>
       <ProjectStatus {status} />
     </div>
+    <!-- TODO: Change to trimmed UTC datestring -->
     <p>Last updated {lastUpdated.toDateString()}</p>
     <div class="flex flex-row gap-2">
       {
@@ -54,7 +55,6 @@ const { Content } = await render();
           alt={title}
           height={2240}
           width={1260}
-          fit="inside"
         />
       )
     }

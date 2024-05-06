@@ -3,7 +3,7 @@ import { TbMoonStars } from "react-icons/tb/index.js";
 import { IoSunnyOutline } from "react-icons/io5/index.js";
 
 const DarkToggle = () => {
-  const [theme, setTheme] = useState(localStorage.getItem("theme") ?? "light");
+  const [theme, setTheme] = useState(window.localStorage.getItem("theme")?? "light");
   const [loaded, setLoaded] = useState(false);
 
   const handleClick = () => {
@@ -16,7 +16,7 @@ const DarkToggle = () => {
     } else {
       document.documentElement.classList.remove("dark");
     }
-    localStorage.setItem("theme", theme);
+    window.localStorage.setItem("theme", theme);
   }, [theme]);
 
   useEffect(() => {

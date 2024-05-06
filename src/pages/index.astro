@@ -4,7 +4,7 @@ import Layout from "../layouts/Layout.astro";
 import LastName from "../components/LastName";
 import Avatar from "../components/Avatar.astro";
 import { getCollection } from "astro:content";
-import { getImage } from "@astrojs/image";
+import { getImage } from "astro:assets";
 import ProjectCard from "../components/PCard";
 
 const allProjects = await getCollection("portfolio");
@@ -91,7 +91,8 @@ const topTwo = projectsWithCardImages
         {
           topTwo.map((r) => (
             <div class="max-w-xl">
-              <ProjectCard {...r} />{" "}
+              {/* @ts-expect-error */ }
+              <ProjectCard title={r.title} description={r.description} slug={r.slug} image={r.image} lastUpdated={r.lastUpdated} imgProps={r.imgProps} />{" "}
             </div>
           ))
         }

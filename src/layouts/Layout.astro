@@ -96,7 +96,7 @@ const { title, description, type } = Astro.props;
         >Freelancing</a
       >
       </nav>
-      <DarkToggle client:load />
+      <DarkToggle client:only="react" />
     </div>
     <slot />
     <Footer />

@@ -11,28 +11,27 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/image": "^0.13.0",
-    "@astrojs/mdx": "^0.15.0",
-    "@astrojs/partytown": "^1.0.3",
-    "@astrojs/prefetch": "^0.1.1",
-    "@astrojs/react": "^2.0.0",
-    "@astrojs/sitemap": "^1.0.0",
-    "@astrojs/tailwind": "^3.0.0",
+    "@astrojs/mdx": "^2.3.1",
+    "@astrojs/partytown": "^2.1.0",
+    "@astrojs/prefetch": "^0.4.1",
+    "@astrojs/react": "^3.3.2",
+    "@astrojs/sitemap": "^3.1.4",
+    "@astrojs/tailwind": "^5.1.0",
     "@headlessui/react": "^1.7.7",
     "@nanostores/react": "^0.4.1",
+    "@playform/compress": "^0.0.3",
     "@react-three/drei": "^9.53.3",
     "@react-three/fiber": "^8.10.0",
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
     "@vercel/analytics": "^0.1.8",
-    "astro": "^2.0.1",
-    "astro-compress": "^1.1.28",
+    "astro": "^4.7.1",
     "nanostores": "^0.7.1",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-icons": "^4.7.1",
     "react-syntax-highlighter": "^15.5.0",
-    "sharp": "^0.31.3",
+    "sharp": "^0.33.3",
     "tailwindcss": "^3.0.24",
     "three": "^0.148.0"
   },
@@ -41,5 +40,6 @@
     "@types/three": "^0.148.0",
     "prettier": "^2.8.3",
     "prettier-plugin-astro": "^0.7.2"
-  }
+  },
+  "packageManager": "yarn@4.2.1"
 }

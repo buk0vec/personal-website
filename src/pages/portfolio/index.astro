@@ -2,7 +2,7 @@
 import SortableCardList from "../../components/SortableCardList";
 import Layout from "../../layouts/Layout.astro";
 import { getCollection } from "astro:content";
-import { getImage } from "@astrojs/image";
+import { getImage } from "astro:assets";
 import InvertSort from "../../components/InvertSort";
 import SortMethodSlider from "../../components/SortMethodSlider";
 
@@ -33,6 +33,7 @@ const projectsWithCardImages = await Promise.all(
       <SortMethodSlider client:idle />
       <InvertSort client:idle />
     </div>
+    { /* @ts-expect-error */}
     <SortableCardList data={projectsWithCardImages} client:load />
   </main>
 </Layout>
