@@ -1,25 +1,35 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { TbMoonStars } from "react-icons/tb/index.js";
 import { IoSunnyOutline } from "react-icons/io5/index.js";
 
+
 const DarkToggle = () => {
-  const [theme, setTheme] = useState(window.localStorage.getItem("theme")?? "light");
+  const [theme, setTheme] = useState<"dark" | "light">("light");
   const [loaded, setLoaded] = useState(false);
 
   const handleClick = () => {
-    setTheme(theme === "light" ? "dark" : "light");
+    document.body.style.transition = 'color .1s, background-color .3s';
+    if (theme === "dark") {
+      document.documentElement.classList.remove('dark');
+      localStorage.theme = 'light';
+      setTheme("light")
+    } else {
+      document.documentElement.classList.add('dark');
+      localStorage.theme = 'dark';
+      setTheme("dark")
+    }
   };
 
-  useEffect(() => {
-    if (theme === "dark") {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-    window.localStorage.setItem("theme", theme);
-  }, [theme]);
+  // useEffect(() => {
+  //   if (theme === "dark") {
+  //     document.documentElement.classList.add("dark");
+  //   } else {
+  //     document.documentElement.classList.remove("dark");
+  //   }
+  // }, [theme]);
 
   useEffect(() => {
+    setTheme(document.documentElement.classList.contains("dark") ? "dark" : "light")
     setLoaded(true)
   }, []);
 
@@ -27,16 +37,9 @@ const DarkToggle = () => {
   }
   
   return (
-    <button className="h-fit" onClick={handleClick} aria-label="Dark Toggle">
-      <div className="p-1 rounded-md outline outline-2 hover:bg-slate-800 dark:hover:bg-neutral-400 transition-colors outline-black dark:outline-neutral-400 group">
-        {
-          loaded ? (theme === "light" ? (
-            <TbMoonStars size={"1.5em"} className="stroke-black group-hover:stroke-white transition-colors" />
-          ) : (
-            <IoSunnyOutline size={"1.5em"} className="stroke-neutral-400 group-hover:stroke-black transition-colors" />
-          )) : <div className="h-6 w-6"></div>
-        }
-
+    <button className="" onClick={handleClick} aria-label="Dark Toggle">
+    <div className="p-2 h-7 w-7 rounded-md outline outline-2 hover:bg-neutral-400 dark:hover:bg-neutral-400 transition-colors outline-black dark:outline-neutral-400 group dark:bg-[url('/sun.svg')] bg-[url('/moon.svg')] bg-center bg-no-repeat bg-[size:1.5rem]">
+       
       </div>
     </button>
   );

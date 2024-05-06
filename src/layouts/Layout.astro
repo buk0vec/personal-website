@@ -1,6 +1,7 @@
 ---
 import DarkToggle from "../components/DarkToggle";
 import Footer from "../components/Footer.astro";
+import { ViewTransitions } from 'astro:transitions';
 
 export interface Props {
   title?: string;
@@ -9,24 +10,42 @@ export interface Props {
 }
 
 const { title, description, type } = Astro.props;
+
 ---
 
 <script is:inline>
-  const theme = (() => {
-    if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
-      return localStorage.getItem("theme");
-    }
-    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      return "dark";
-    }
-    return "light";
-  })();
+  // const theme = (() => {
+  //   if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
+  //     return localStorage.getItem("theme");
+  //   }
+  //   if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+  //     return "dark";
+  //   }
+  //   return "light";
+  // })();
 
-  if (theme === "light") {
-    document.documentElement.classList.remove("dark");
-  } else {
-    document.documentElement.classList.add("dark");
-  }
+  // if (theme === "light") {
+  //   document.documentElement.classList.remove("dark");
+  // } else {
+  //   document.documentElement.classList.add("dark");
+  // }
+  document.addEventListener('astro:after-swap', () => {
+        if (
+          localStorage.theme === 'dark' ||
+          (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        ) {
+          document.documentElement.classList.add('dark');
+        }
+      });
+
+      if (
+        localStorage.theme === 'dark' ||
+        (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+      ) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
 </script>
 
 <html lang="en" class="h-full">
@@ -63,6 +82,7 @@ const { title, description, type } = Astro.props;
     <meta name="twitter:image" content="https://www.bukovec.dev/og.png">
     <title>{title ? `${title} - Nick Bukovec` : "Nick Bukovec"}</title>
     <script defer type="text/partytown" src="/_vercel/insights/script.js"></script>
+    <ViewTransitions />
   </head>
   <body
     class="w-full bg-gradient-to-b from-teal-100 to-rose-100 bg-fixed h-full min-h-full bg-no-repeat dark:from-slate-800 dark:to-dark-indigo mt-4"
@@ -96,7 +116,7 @@ const { title, description, type } = Astro.props;
         >Freelancing</a
       >
       </nav>
-      <DarkToggle client:only="react" />
+      <DarkToggle client:idle />
     </div>
     <slot />
     <Footer />
