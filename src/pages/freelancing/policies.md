@@ -1,5 +1,5 @@
 ---
-layout: '../../layouts/FreelancingLayout.astro'
+layout: '../../layouts/PoliciesLayout.astro'
 ---
 
 # Policies
