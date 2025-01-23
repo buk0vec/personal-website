@@ -74,13 +74,9 @@ import AsciiArtWrapper from "../components/AsciiArtWrapper.svelte";
   <main class="sm:px-4 sm:py-4 py-1 max-h-[calc(100vh-1rem)]">
     <div class="flex sm:flex-row justify-between flex-col-reverse items-left">
     <div class="px-2 mt-2">
-      { /* @ts-expect-error */ }
       <TypedText client:idle text="Nick Bukovec" style="font-mono dark:text-white text-2xl font-bold" delay={120} cursor={true}/>
-      { /* @ts-expect-error */ }
       <TypedText client:idle text="Full Stack Developer" style="font-mono dark:text-white text-xl" delay={130} cursor={true}/>
-      { /* @ts-expect-error */ }
       <TypedText client:idle text="Machine Learning Engineer" style="font-mono dark:text-white text-xl" delay={140} cursor={true}/>
-      { /* @ts-expect-error */ }
       <InteractiveNavigation client:idle delay={160}/>
     </div>  
     <AsciiArtWrapper client:idle />

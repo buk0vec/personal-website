@@ -25,8 +25,13 @@ module.exports = {
       fontSize: {
         'xxs': '0.4rem',
         'xxxs': '0.3rem',
-      }
+      },
+      screens: {
+        'prose-width': '65ch',
+      },
+      
     },
+
 
 	},
 	plugins: [
