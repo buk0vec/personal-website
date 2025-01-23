@@ -1,5 +1,7 @@
 import { z, defineCollection } from 'astro:content'
 import type { z as z2 }from 'astro/zod'
+import { glob } from 'astro/loaders';
+
 
 const portfolioSchema = z.object({
   title: z.string(),
@@ -12,6 +14,7 @@ const portfolioSchema = z.object({
 })
 
 const portfolioCollection = defineCollection({
+  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: "./src/content/portfolio" }),
   schema: portfolioSchema
 })
 

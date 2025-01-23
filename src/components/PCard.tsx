@@ -18,7 +18,7 @@ const ProjectCard = ({
 }: ProjectCardProps) => {
   return (
     <a href={`/portfolio/${slug}`} rel='prefetch'>
-      <div className="border-4 rounded-md border-black dark:border-teal-200 my-4 overflow-hidden group hover:scale-101 transition-transform">
+      <div className="border-4 rounded-md border-black dark:border-white my-4 overflow-hidden group hover:scale-101 transition-transform">
         <div className="max-w-xl overflow-hidden">
           {
             // @ts-ignore
@@ -28,8 +28,8 @@ const ProjectCard = ({
         <h2 className="font-bold text-2xl px-4 pt-4 dark:text-white">
           {title}
         </h2>
-        <p className="px-4 dark:text-white">{description}</p>
-        <p className="px-4 pb-4 dark:text-white">Last updated {lastUpdated.toUTCString().slice(0, lastUpdated.toUTCString().length - 13)}</p>
+        <p className="px-4 dark:text-gray-300">{description}</p>
+        <p className="px-4 pb-4 dark:text-gray-300">Last updated {lastUpdated.toUTCString().slice(0, lastUpdated.toUTCString().length - 13)}</p>
       </div>
     </a>
   );

@@ -11,7 +11,7 @@ const allProjects = await getCollection("portfolio");
 const projectsWithCardImages = await Promise.all(
   allProjects.map(async (p) => ({
     ...p.data,
-    slug: p.slug,
+    slug: p.id,
     imgProps: p.data.image
       ? await getImage({
           src: "/" + p.data.image,
@@ -25,9 +25,8 @@ const projectsWithCardImages = await Promise.all(
   }))
 );
 ---
-
-<Layout title="Portfolio" description="A collection of Nick's development projects." type='website'>
-  <main class="max-w-xl md:mx-auto mx-4">
+<Layout title="Portfolio" description="A collection of my development projects." type='website'>
+  <main class="max-w-[65ch] sm:mx-auto mx-4">
     <h1 class="text-4xl font-extrabold dark:text-white">Portfolio</h1>
     <div class="flex flex-row justify-between items-baseline py-2">
       <SortMethodSlider client:idle />

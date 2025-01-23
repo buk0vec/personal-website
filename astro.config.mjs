@@ -1,5 +1,4 @@
 import { defineConfig } from "astro/config";
-
 import tailwind from "@astrojs/tailwind";
 
 // https://astro.build/config
@@ -21,17 +20,17 @@ import partytown from "@astrojs/partytown";
 // import playformCompress from "@playform/compress";
 
 // https://astro.build/config
+import svelte from "@astrojs/svelte";
+
+// https://astro.build/config
+
+// https://astro.build/config
 export default defineConfig({
   site: "https://www.bukovec.dev/",
-  integrations: [
-    tailwind(),
-    react(),
-    prefetch(),
-    mdx(),
-    sitemap(),
-    partytown(),
-    // playformCompress(),
-  ],
+  integrations: [tailwind(), react(), prefetch(), mdx(), sitemap(), 
+    // partytown()
+  // playformCompress(),
+  , svelte()],
   markdown: {
     shikiConfig: {
       // Choose from Shiki's built-in themes (or add your own)
@@ -41,7 +40,7 @@ export default defineConfig({
       // https://shiki.style/guide/dual-themes
       themes: {
         light: "github-light",
-        dark: "github-dark",
+        dark: "github-dark"
       },
       // Add custom languages
       // Note: Shiki has countless langs built-in, including .astro!
@@ -51,7 +50,7 @@ export default defineConfig({
       wrap: true,
       // Add custom transformers: https://shiki.style/guide/transformers
       // Find common transformers: https://shiki.style/packages/transformers
-      transformers: [],
-    },
-  },
+      transformers: []
+    }
+  }
 });

@@ -1,34 +1,24 @@
 ---
 import DarkToggle from "../components/DarkToggle";
 import Footer from "../components/Footer.astro";
-import { ViewTransitions } from 'astro:transitions';
+import { ClientRouter } from 'astro:transitions';
+// import '@fontsource-variable/kode-mono'
+import '@fontsource-variable/geist-mono';
+// import '@fontsource-variable/azeret-mono';
 
 export interface Props {
   title?: string;
   description: string;
   type: 'website' | 'article'
+  hideHeader?: boolean;
+  hideFooter?: boolean;
 }
 
-const { title, description, type } = Astro.props;
+const { title, description, type, hideHeader, hideFooter } = Astro.props;
 
 ---
 
 <script is:inline>
-  // const theme = (() => {
-  //   if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
-  //     return localStorage.getItem("theme");
-  //   }
-  //   if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-  //     return "dark";
-  //   }
-  //   return "light";
-  // })();
-
-  // if (theme === "light") {
-  //   document.documentElement.classList.remove("dark");
-  // } else {
-  //   document.documentElement.classList.add("dark");
-  // }
   document.addEventListener('astro:after-swap', () => {
         if (
           localStorage.theme === 'dark' ||
@@ -82,21 +72,18 @@ const { title, description, type } = Astro.props;
     <meta name="twitter:image" content="https://www.bukovec.dev/og.png">
     <title>{title ? `${title} - Nick Bukovec` : "Nick Bukovec"}</title>
     <script defer type="text/partytown" src="/_vercel/insights/script.js"></script>
-    <ViewTransitions />
+    <ClientRouter />
   </head>
   <body
-    class="w-full bg-gradient-to-b from-teal-100 to-rose-100 bg-fixed h-full min-h-full bg-no-repeat dark:from-slate-800 dark:to-dark-indigo mt-4"
+    class="w-full bg-fixed bg-yellow-100 dark:bg-gray-900 h-[100vh] min-h-[100vh] bg-no-repeat dark:from-slate-800 dark:to-dark-indigo flex flex-col"
   >
+  {!hideHeader &&
+    <div class= "mx-auto mt-4 w-[65ch] max-w-[65ch] px-4 sm:px-0">
+      <a href="/" rel="prefetch" class="text-black dark:text-white text-3xl font-mono font-extrabold">Nick Bukovec</a>
     <div
-      class="flex flex-row justify-between md:mx-auto mx-4 max-w-xl items-center pb-4 px-4 sm:px-0"
+      class="flex flex-row justify-between max-w-xl items-center pb-4 self-start"
     >
       <nav class="flex flex-row items-baseline gap-4 justify-center">
-        <a
-          href="/"
-          rel="prefetch"
-          class="text-xl font-semibold text-black hover:text-purple-900 dark:text-white"
-          >Home</a
-        >
         <a
           href="/about"
           rel="prefetch"
@@ -116,9 +103,13 @@ const { title, description, type } = Astro.props;
         >Freelancing</a
       >
       </nav>
-      <DarkToggle client:idle />
+      {/* <DarkToggle client:idle /> */}
     </div>
-    <slot />
-    <Footer />
+    </div>
+  }
+    <div class="flex-grow">
+      <slot />
+    </div>
+    {<Footer />}
   </body>
 </html>
