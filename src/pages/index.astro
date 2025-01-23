@@ -1,102 +1,89 @@
 ---
-import VoxelArt from "../components/VoxelArt";
 import Layout from "../layouts/Layout.astro";
-import LastName from "../components/LastName";
-import Avatar from "../components/Avatar.astro";
-import { getCollection } from "astro:content";
-import { getImage } from "astro:assets";
-import ProjectCard from "../components/PCard";
+import TypedText from "../components/TypedText.svelte";
+import InteractiveNavigation from "../components/InteractiveNavigation.svelte";
+import AsciiArtWrapper from "../components/AsciiArtWrapper.svelte";
 
-const allProjects = await getCollection("portfolio");
+// const allProjects = await getCollection("portfolio");
 
-const projectsWithCardImages = await Promise.all(
-  allProjects.map(async (p) => ({
-    ...p.data,
-    slug: p.slug,
-    imgProps: p.data.image
-      ? await getImage({
-          src: "/" + p.data.image,
-          alt: p.data.title,
-          height: 200,
-          width: 576,
-          fit: "cover",
-          position: "entropy",
-        })
-      : null,
-  }))
-);
+// const projectsWithCardImages = await Promise.all(
+//   allProjects.map(async (p) => ({
+//     ...p.data,
+//     slug: p.slug,
+//     imgProps: p.data.image
+//       ? await getImage({
+//           src: "/" + p.data.image,
+//           alt: p.data.title,
+//           height: 200,
+//           width: 576,
+//           fit: "cover",
+//           position: "entropy",
+//         })
+//       : null,
+//   }))
+// );
 
-const topTwo = projectsWithCardImages
-  .sort((a, b) => b.lastUpdated.getTime() - a.lastUpdated.getTime())
-  .slice(0, 2);
+// const topTwo = projectsWithCardImages
+//   .sort((a, b) => b.lastUpdated.getTime() - a.lastUpdated.getTime())
+//   .slice(0, 2);
 ---
 
-<Layout description="Nick Bukovec - Developer and Student and Learner and a whole bunch of other stuff" type='website'>
-  <main class="sm:px-4 px-2 py-4">
-    <div class="flex md:flex-row flex-col-reverse justify-between">
-      <section class="sm:ml-12 mx-auto md:pr-2 py-4">
-        <div class="sm:flex flex-row flex-wrap items-baseline">
-          <Avatar style="sm:block inline-block align-baseline" />
-          <h1 class="text-4xl font-extrabold pb-2 text-black dark:text-white">
-            Hi, I'm <span class="text-green-700 text-5xl lg:inline block"
-              >Nick&nbsp;<LastName client:idle /></span
-            >
-          </h1>
-        </div>
-        <p class="text-2xl text-black dark:text-white">I am a:</p>
-        <ul class="">
-          <li>
-            <p class="text-3xl font-bold text-black dark:text-white">
-              - Developer
-            </p>
-          </li>
-          <li>
-            <p class="text-3xl font-bold text-black dark:text-white">
-              - Student
-            </p>
-          </li>
-          <li>
-            <p class="text-3xl font-bold text-black dark:text-white">
-              - Learner
-            </p>
-          </li>
-          <li>
-            <p class="text-3xl font-bold text-black dark:text-white">
-              - Problem Solver
-            </p>
-          </li>
-          <li>
-            <p class="text-3xl font-bold text-black dark:text-white">
-              - Outdoorsman
-            </p>
-          </li>
-        </ul>
-        <p class="text-2xl font-semibold text-black dark:text-white">
-          (But not in that particular order)
-        </p>
-      </section>
-      <div class="min-h-96 h-96 md:min-w-2/5 min-w-full">
-        <VoxelArt client:only="react" />
-      </div>
+<script>
+  document.addEventListener("keydown", (e) => {
+  if (e.key === "ArrowDown") {
+    const tabItems = document.querySelectorAll("[data-tab]") as NodeListOf<HTMLElement>;
+    const selected = document.activeElement;
+    if (!(selected instanceof HTMLElement)) {
+      tabItems[0].focus();
+    }
+    else if (selected.dataset.tab === undefined) {
+      tabItems[0].focus();
+    }
+    else if (selected.dataset.tab === (tabItems.length - 1).toString()) {
+      tabItems[0].focus();
+    }
+    else {
+      tabItems[parseInt(selected.dataset.tab) + 1].focus();
+    }
+
+  } else if (e.key === "ArrowUp") {
+    const tabItems = document.querySelectorAll("[data-tab]") as NodeListOf<HTMLElement>;
+    const selected = document.activeElement;
+    if (!(selected instanceof HTMLElement)) {
+      tabItems[0].focus();
+    }
+    else if (selected.dataset.tab === undefined) {
+      tabItems[tabItems.length - 1].focus();
+    }
+    else if (selected.dataset.tab === "0") {
+      tabItems[tabItems.length - 1].focus();
+    }
+    else {
+      tabItems[parseInt(selected.dataset.tab) - 1].focus();
+    }
+  } else if (e.key === " ") {
+    const selected = document.activeElement;
+    if (selected instanceof HTMLElement) {
+      selected.click();
+    }
+  }
+});
+</script>
+
+<Layout description="Nick Bukovec - Developer and Student and Learner and a whole bunch of other stuff" type='website' hideHeader={true} hideFooter={true}>
+  <main class="sm:px-4 sm:py-4 py-1 max-h-[calc(100vh-1rem)]">
+    <div class="flex sm:flex-row justify-between flex-col-reverse items-left">
+    <div class="px-2 mt-2">
+      { /* @ts-expect-error */ }
+      <TypedText client:idle text="Nick Bukovec" style="font-mono dark:text-white text-2xl font-bold" delay={120} cursor={true}/>
+      { /* @ts-expect-error */ }
+      <TypedText client:idle text="Full Stack Developer" style="font-mono dark:text-white text-xl" delay={130} cursor={true}/>
+      { /* @ts-expect-error */ }
+      <TypedText client:idle text="Machine Learning Engineer" style="font-mono dark:text-white text-xl" delay={140} cursor={true}/>
+      { /* @ts-expect-error */ }
+      <InteractiveNavigation client:idle delay={160}/>
+    </div>  
+    <AsciiArtWrapper client:idle />
     </div>
-    <section class="mx-10 flex flex-col items-center">
-      <h1 class="font-bold text-2xl dark:text-white">Recent Projects</h1>
-      <a
-        href="/portfolio"
-        rel="prefetch"
-        class="font-semibold underline underline-offset-2 hover:text-gray-500 dark:text-white dark:hover:text-gray-300"
-        >(View all)</a
-      >
-      <div class="flex flex-col gap-2">
-        {
-          topTwo.map((r) => (
-            <div class="max-w-xl">
-              {/* @ts-expect-error */ }
-              <ProjectCard title={r.title} description={r.description} slug={r.slug} image={r.image} lastUpdated={r.lastUpdated} imgProps={r.imgProps} />{" "}
-            </div>
-          ))
-        }
-      </div>
-    </section>
   </main>
 </Layout>

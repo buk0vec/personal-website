@@ -1,6 +1,6 @@
 /// <reference types="astro/astro-jsx" />
 import { useStore } from "@nanostores/react";
-import type { portfolioData } from "../content/config";
+import type { portfolioData } from "../content.config";
 import ProjectCard from "./PCard";
 import { invert, method } from "../stores/projectStore";
 import { useEffect, useMemo, useState } from "react";
