@@ -90,6 +90,7 @@
 
 <a
   class={style}
+  data-astro-prefetch
   {href}
   data-tab={dataTab}
   {onfocus}

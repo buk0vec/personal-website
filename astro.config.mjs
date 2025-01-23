@@ -27,7 +27,7 @@ import svelte from "@astrojs/svelte";
 // https://astro.build/config
 export default defineConfig({
   site: "https://www.bukovec.dev/",
-  integrations: [tailwind(), react(), prefetch(), mdx(), sitemap(), 
+  integrations: [tailwind(), react(),  mdx(), sitemap(), 
     // partytown()
   // playformCompress(),
   , svelte()],
@@ -52,5 +52,6 @@ export default defineConfig({
       // Find common transformers: https://shiki.style/packages/transformers
       transformers: []
     }
-  }
+  },
+  prefetch: true
 });
