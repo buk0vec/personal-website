@@ -19,7 +19,7 @@ const ProjectCard = ({
   return (
     <a href={`/portfolio/${slug}`} rel='prefetch'>
       <div className="border-4 rounded-md border-black dark:border-white my-4 overflow-hidden group hover:scale-101 transition-transform">
-        <div className="max-w-xl overflow-hidden">
+        <div className="max-w-[65ch] overflow-hidden">
           {
             // @ts-ignore
             imgProps && <img {...imgProps} loading="lazy" decoding="async" className="group-hover:scale-105 transition-transform" />
