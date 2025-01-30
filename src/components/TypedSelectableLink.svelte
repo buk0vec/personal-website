@@ -87,36 +87,23 @@
     clearInterval(interval);
   });
 </script>
-{#if href.startsWith('/')}
+
 <a
   class={style}
   data-astro-prefetch
   {href}
+  target={href.startsWith("/") ? undefined : "_blank"}
+  rel={href.startsWith("/") ? undefined : "noopener noreferrer"}
   data-tab={dataTab}
   {onfocus}
   {onblur}
+  aria-label={text}
 >
-  {cursor && count < text.length && delay <= delayCounter
-    ? text.slice(0, count) + "█"
-    : text.slice(0, count)}<span class="pl-1"
-    >{flashCursor ? "█" : ""}</span
-  >
+  <span aria-hidden="true">
+    {cursor && count < text.length && delay <= delayCounter
+      ? text.slice(0, count) + "█"
+      : text.slice(0, count)}
+    <span class="pl-0">{flashCursor ? "█" : ""}</span>
+  </span>
+  <span class="sr-only">{text}</span>
 </a>
-{:else}
-<a
-  class={style}
-  data-astro-prefetch
-  {href}
-  target="_blank"
-  rel="noopener noreferrer"
-  data-tab={dataTab}
-  {onfocus}
-  {onblur}
->
-  {cursor && count < text.length && delay <= delayCounter
-    ? text.slice(0, count) + "█"
-    : text.slice(0, count)}<span class="pl-1"
-    >{flashCursor ? "█" : ""}</span
-  >
-</a>
-{/if}

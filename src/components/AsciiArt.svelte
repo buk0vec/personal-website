@@ -99,10 +99,10 @@
   });
 </script>
 
-<div class="w-100% flex flex-col items-center flex-grow" aria-label="ASCII Art" data-nosnippet>
+<div class="w-100% flex flex-col items-center flex-grow" aria-label="ASCII Art" data-nosnippet role='presentation'>
   {#each block_chars as row}
     <pre
-      class="font-mono sm:text-xxs lg:text-xs text-xxxs text-gray-500">{row.join(
+      class="font-mono sm:text-xxs lg:text-xs text-xxxs dark:text-gray-500 text-amber-900" aria-hidden="true">{row.join(
         "",
       )}</pre>
   {/each}

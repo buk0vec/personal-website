@@ -25,7 +25,7 @@
       onpress={refreshKey}
       type="button"
       text="press r to reload"
-      style="font-mono text-xs text-gray-500 hover:text-white hover:bg-gray-500 px-1 py-1"
+      style="font-mono text-xs text-amber-900 dark:text-gray-500 hover:text-white hover:bg-gray-500 px-1 py-1"
       delay={200}
     ></TypedText>
   </div>

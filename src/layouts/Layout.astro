@@ -75,7 +75,7 @@ const { title, description, type, hideHeader, hideFooter } = Astro.props;
     <ClientRouter />
   </head>
   <body
-    class="w-full bg-fixed bg-yellow-100 dark:bg-gray-900 h-[100vh] min-h-[100vh] bg-no-repeat dark:from-slate-800 dark:to-dark-indigo flex flex-col"
+    class="w-full bg-fixed bg-yellow-50 dark:bg-gray-900 h-[100vh] min-h-[100vh] flex flex-col"
   >
   {!hideHeader &&
     <div class= "mx-0 prose-width:mx-auto mt-4 prose-width:w-[65ch] max-w-[65ch] px-4 sm:px-0 self-start">
@@ -87,19 +87,19 @@ const { title, description, type, hideHeader, hideFooter } = Astro.props;
         <a
           href="/about"
           data-astro-prefetch
-          class="text-xl font-semibold text-black hover:text-purple-900 dark:text-white"
+          class="text-xl font-semibold text-black hover:text-amber-900 dark:text-white dark:hover:text-gray-300"
           >About</a
         >
         <a
           href="/portfolio"
           data-astro-prefetch
-          class="text-xl font-semibold text-black hover:text-purple-900 dark:text-white"
+          class="text-xl font-semibold text-black hover:text-amber-900 dark:text-white dark:hover:text-gray-300"
           >Portfolio</a
         >
         <a
         href="/freelancing"
         data-astro-prefetch
-        class="text-xl font-semibold text-black hover:text-purple-900 dark:text-white"
+        class="text-xl font-semibold text-black hover:text-amber-900 dark:text-white dark:hover:text-gray-300"
         >Freelancing</a
       >
       </nav>

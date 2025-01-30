@@ -1,10 +1,11 @@
 <script lang="ts">
   import { onMount, onDestroy } from "svelte";
 
-  let interval = null;
+  let interval = $state(null);
   let count = $state(0);
   let delayCounter = $state(0);
-  let clickListener = $state(null);
+  let clickListener: (() => void) | null = null;
+
   interface Props {
     text?: string;
     tickSpeed?: number;
@@ -12,7 +13,7 @@
     delay?: number;
     cursor?: boolean;
     onpress?: () => void;
-    type?: 'p' | 'button'
+    type?: 'p' | 'button';
   }
 
   let {
@@ -26,12 +27,13 @@
   }: Props = $props();
 
   function onclick() {
-    document.removeEventListener('click', clickListener);
+    document.removeEventListener('click', clickListener!);
     count = text.length + 1;
   }
-
+  
   onMount(() => {
-    clickListener = document.addEventListener('click', onclick);
+    clickListener = onclick;
+    document.addEventListener('click', clickListener);
 
     interval = setInterval(() => {
       if (delayCounter < delay) {
@@ -41,35 +43,41 @@
       if (count < text.length) {
         count++;
       } else {
-        clearInterval(interval);
-        document.removeEventListener('click', clickListener);
+        clearInterval(interval!);
+        document.removeEventListener('click', clickListener!);
       }
     }, tickSpeed);
   });
 
   onDestroy(() => {
-    clearInterval(interval);
+    clearInterval(interval!);
   });
 </script>
 
 {#if type === 'p'}
-<p class={style}>
-  {#if count == 0}
-    <br />
-  {:else if cursor && count < text.length && delay <= delayCounter}
-    {text.slice(0, count) + "█"}
-  {:else}
-    {text.slice(0, count)}
-  {/if}
+<p class={style} aria-label={text}>
+  <span aria-hidden="true">
+    {#if count == 0}
+      <br />
+    {:else if cursor && count < text.length && delay <= delayCounter}
+      {text.slice(0, count) + "█"}
+    {:else}
+      {text.slice(0, count)}
+    {/if}
+  </span>
+  <span class="sr-only">{text}</span> 
 </p>
 {:else if type === 'button'}
-<button type="button" class={style} onclick={onpress}>
-  {#if count == 0}
-    <br />
-  {:else if cursor && count < text.length && delay <= delayCounter}
-    {text.slice(0, count) + "█"}
-  {:else}
-    {text.slice(0, count)}
-  {/if}
+<button type="button" class={style} onclick={onpress} aria-label={text}>
+  <span aria-hidden="true">
+    {#if count == 0}
+      <br />
+    {:else if cursor && count < text.length && delay <= delayCounter}
+      {text.slice(0, count) + "█"}
+    {:else}
+      {text.slice(0, count)}
+    {/if}
+  </span>
+  <span class="sr-only">{text}</span> 
 </button>
 {/if}
