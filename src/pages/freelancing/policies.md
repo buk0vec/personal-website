@@ -2,9 +2,7 @@
 layout: '../../layouts/PoliciesLayout.astro'
 ---
 
-# Policies
-
-The terms for my freelance work.
+# Freelance Policies
 
 ## Payment Policy
 
