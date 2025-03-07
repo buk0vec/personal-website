@@ -22,11 +22,11 @@ I worked as a Student Lead at the Service Desk at Cal Poly Information Technolog
 
 In the summer of 2022, I was a Software Engineering and Data Science Intern at NASA Jet Propulsion Laboratory, working with the Artificial Intelligence, Analytics & Innovative Development division.
 
-I'm looking for an internship for Summer 2025!
+I'm looking for a position for Summer 2025!
 
 ## Skills
 
-A whole bunch of stuff, including-but-not-limited-to: **Python, C, Java, Pytorch, TensorFlow, HTML/CSS, Next.js, Postgres, MySQL**, and **Docker** At the end of the day, I am an **enthusiastic learner** and I love to learn about and try new things.
+A whole bunch of stuff, including-but-not-limited-to: **Python, C, Java, Pytorch, HTML/CSS, Next.js, Postgres, MySQL**, and **Docker**. At the end of the day, I am an **enthusiastic learner** and I love to learn about and try new things.
 
 ## Contact
 
