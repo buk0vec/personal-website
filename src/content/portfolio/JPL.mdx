@@ -1,0 +1,23 @@
+---
+title: AST Configurator
+status: Complete
+description: Building an extensible web application with React and NextJS over a ten week internship at NASA's Jet Propulsion Laboratory.
+lastUpdated: 2022-08-17
+---
+
+In the summer of 2022, I had the opportunity to work as an intern at NASA's Jet Propulsion Laboratory. It was definitely one of the coolest
+experiences of my life and I will never forget the technology that I was able to get up close to. I was tasked with creating a configuration
+tool for deploying a suite of open-source ground data system (GDS) software onto Amazon Web Services (AWS). These software systems could 
+then be used by both JPL researchers and other organizations to manage data coming in from small sattelite missions, such as Cubesat. 
+However, the tricky part was that nobody on the team really wanted to write any Javascript/Typescript to modify it once I left. 
+So I had to create a system where all of the prompts, software options, and user flows could be configured just with JSON documents.
+
+## Stack
+
+The project used React and NextJS. It really is just a single page app, but I chose NextJS to take advantage of some fun features like font
+optimization that come out of the box.
+
+## Features
+
+The project has three main sections: an initial questionnaire to determine what software is needed for the mission, a selection screen where
+eligible software can be included or excluded, and then configuration for both the software and its deployment into AWS. 

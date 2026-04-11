@@ -1,0 +1,35 @@
+---
+title: srsadmm
+status: Complete
+description: Distributed LASSO regression solver using ADMM and AWS Lambda serverless workers
+lastUpdated: 2025-06-01
+github: https://github.com/buk0vec/srsadmm
+---
+
+Convex optimization algorithms like LASSO regression are well-understood mathematically, but applying them to large datasets requires either a lot of memory or a lot of time. I wanted to see how far I could push a serverless compute model for this kind of problem, so I built srsadmm: a distributed LASSO solver that offloads expensive matrix operations to AWS Lambda workers, coordinated by the Alternating Direction Method of Multipliers (ADMM).
+
+## What is ADMM?
+
+ADMM is an optimization algorithm that splits a large problem into smaller subproblems that can be solved independently and then reconciled. It's a natural fit for distributed computing: each worker handles its own chunk of the data matrix, computes local updates, and syncs shared variables back to the coordinator. The coordinator then aggregates and repeats until convergence.
+
+For LASSO regression specifically, the bottleneck is computing `A^T A` and the subsequent matrix inversions and multiplications at each step. These are the operations I offload to Lambda.
+
+## Architecture
+
+The project is a Rust workspace with several crates:
+
+- **`srsadmm-core`** — the core ADMM framework and LASSO solver binaries. Published to [crates.io](https://crates.io/crates/srsadmm-core) with [docs.rs documentation](https://docs.rs/srsadmm-core). Implements the `ADMMProblem` trait interface for primal/dual updates, convergence checking, and residual tracking.
+- **`srsadmm-lambda-mm`** — the AWS Lambda function that receives a matrix multiplication job (row chunks stored in S3), performs the computation with BLAS acceleration (Accelerate on macOS, OpenBLAS/netlib elsewhere), and writes results back to S3.
+- **`srsadmm-lambda-dual`** and **`srsadmm-lambda-resid`** — additional Lambda functions for dual variable updates and residual computation.
+
+The coordinator and workers communicate entirely through S3. Matrix chunks are stored as compressed binary blobs with memory-mapped access for the large read-only data matrix. This keeps Lambda invocation payloads tiny and avoids the 6MB Lambda response limit.
+
+## Performance
+
+After an initial factorization and data upload step, the solver fits a LASSO model to 16GB of data in under 3 minutes using 40 parallel Lambda workers. The heavy `A^T A` factorization only needs to happen once per problem, so subsequent model fits (e.g. different regularization strengths) are much faster.
+
+## What I Learned
+
+Distributed numerical computing has a lot of sharp edges that purely algorithmic implementations don't. Getting the matrix partitioning right so workers never need to communicate with each other (only with S3), handling Lambda cold starts gracefully, and making sure convergence criteria still hold under floating-point rounding from parallel aggregation took more iteration than I expected.
+
+Rust was a great fit here: the `nalgebra` and `ndarray` ecosystems gave me BLAS-accelerated linear algebra, `tokio` made it easy to fan out Lambda invocations asynchronously, and the type system caught most of my distributed state bugs at compile time rather than at 2am. Also, AWS's Lambda story with Rust actually works quite well, and I will probably use it again in the future.

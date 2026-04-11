@@ -1,0 +1,39 @@
+---
+title: FakeSound Mamba
+status: Complete
+description: Applying Vision Mamba to general deepfake audio detection with multi-task learning
+lastUpdated: 2024-12-01
+github: https://github.com/buk0vec/fakesound-mamba
+---
+
+This was my final project for Stanford's CS230 (Deep Learning). The goal: can a single model generalize to deepfake audio attacks it has never seen during training? Most existing deepfake audio detectors are trained and evaluated on a specific attack type, which limits their real-world usefulness. I wanted to build something more general.
+
+## The Approach
+
+I adapted the [Vision Mamba](https://github.com/kyegomez/VisionMamba) (ViM) architecture — which uses selective state space models (SSMs) instead of attention — for audio classification. Audio clips are converted to mel spectrograms and treated as 2D images, so a vision architecture is a reasonable fit.
+
+The key design choice was framing this as a **multi-task learning** problem. Rather than just predicting "real" or "fake" at the clip level, the model simultaneously:
+
+1. **Classifies** the clip as real or fake (clip-level)
+2. **Segments** which portions of the clip contain inpainted deepfake audio (frame-level)
+
+The intuition is that learning to localize fakes forces the model to develop more robust internal representations, rather than latching onto superficial cues that only work for one attack type.
+
+To support sequential outputs alongside classification, I modified `vim/models_mamba.py` in the ViM source to expose intermediate hidden states per token rather than only the final pooled representation.
+
+## Training Infrastructure
+
+I built a custom AWS SageMaker training pipeline to handle the compute requirements:
+
+- **Custom Docker containers** with the correct version of `causal-conv1d` (the ViM repo packages an incompatible version — a fun debugging session)
+- **DDP training on EC2 Spot instances** to keep costs down
+- **Hyperparameter sweeps** using SageMaker's built-in tuning jobs, searching over learning rate schedules, dropout, and spectrogram augmentation parameters
+- A **cosine LR scheduler with configurable warmup and cooldown** written from scratch in PyTorch, since the standard schedulers didn't quite match what I wanted
+
+## Results
+
+When evaluated on deepfake attacks that were completely unseen during training, the model achieved higher clip-level classification accuracy and higher segment-level F1 score than both the CNN baseline (FCN-ResNet) and subjective human evaluation. The multi-task objective appears to genuinely help generalization, not just add complexity.
+
+## What I'd Do Differently
+
+The ViM architecture requires a somewhat painful setup (mamba-1p1p1, causal-conv1d, specific CUDA versions), and I spent a non-trivial amount of time just getting the environment reproducible. If I were starting over I'd evaluate whether a simpler SSM baseline or a lightweight transformer would reach comparable results with less infrastructure pain. That said, it was a good excuse to get very familiar with how Mamba works under the hood.
